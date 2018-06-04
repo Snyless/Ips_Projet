@@ -1,22 +1,21 @@
+<?php
+    include'includes/session.php';
+    include 'includes/header.php';
+    include 'includes/database.php';
+    $data = mysqli_query($conn,"SELECT * FROM cours");
+?>
 <!DOCTYPE html>
 <html lang="en">
-
-   <?php
-            include 'includes/header.php';
-            ?>
-
 <body>
     <!--============================= HEADER =============================-->
     <header>
         <div class="container nav-menu">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="index.html"><img src="images/responsive-logo.png" class="responsive-logo img-fluid" alt="responsive-logo"></a>
+                    <a href="index.html"><img src="images/logo2.png" class="responsive-logo img-fluid" alt="responsive-logo"></a>
                 </div>
             </div>
-   <?php
-            include 'includes/nav_bar.php';
-            ?>
+            <?php include 'includes/nav_bar.php'; ?>
     </div>
     <div class="slider_img">
         <div id="carousel" class="carousel slide" data-ride="carousel">
@@ -91,7 +90,25 @@
                     <br>standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
                     <br> type specimen book. It has survived not only five centuries</p>
                     <img src="images/welcom_sign.png" class="img-fluid" alt="welcom-img">
-                </div>
+            </div>
+            <div class="col-md-6">
+                <h2>Welcome</h2>
+            </div>
+            <div class="col-md-6">
+                <h2>Welcome</h2>
+            </div>
+            <div class="col-md-6">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                    <br>standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                    <br> type specimen book. It has survived not only five centuries</p>
+                    <img src="images/welcom_sign.png" class="img-fluid" alt="welcom-img">
+            </div>
+            <div class="col-md-6">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                    <br>standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                    <br> type specimen book. It has survived not only five centuries</p>
+                    <img src="images/welcom_sign.png" class="img-fluid" alt="welcom-img">
+            </div>
             </div>
         </div>
     </section>
@@ -105,14 +122,16 @@
                 </div>
             </div>
             <div class="row">
+                <?php 
+                    while($info = mysqli_fetch_array( $data, MYSQLI_BOTH )){
+                ?>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                     <div class="courses_box mb-5">
                         <div class="course-img-wrap">
-                            <img src="images/courses_1.jpg" class="img-fluid" alt="courses-img">
+                            <img src="<?=$info['image']?>" class="img-fluid" alt="courses-img">
                             <div class="courses_box-img">
                                 <div class="courses-link-wrap">
-                                    <a href="course-detail.html" class="course-link"><span>course Details </span></a>
-                                    <a href="admission-form.html" class="course-link"><span>Join today </span></a>
+                                    <a href="course-detail.php?id=<?php echo"{$info['id_cours']}"; ?>" class="course-link"><span>course Details </span></a>
                                 </div>
                                 <!-- // end .courses-link-wrap -->
                             </div>
@@ -122,81 +141,20 @@
                             <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
                         </div>
                         <a href="course-detail.html" class="course-box-content">
-                            <h3>Biochemistry</h3>
-                            <p>When an unknown printer took a galley...</p>
+                            <h3><?php echo"{$info['titulaire']}"; ?></h3>
+                            <p><?php
+                                    $post = substr($info['description'], 0, 50); 
+                                    echo $post . "..."; ?></p>
                         </a>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <div class="courses_box mb-5">
-                        <div class="course-img-wrap">
-                            <img src="images/courses_2.jpg" class="img-fluid" alt="courses-img">
-                            <div class="courses_box-img">
-                                <div class="courses-link-wrap">
-                                    <a href="course-detail.html" class="course-link"><span>course Details </span></a>
-                                    <a href="admission-form.html" class="course-link"><span>Join today </span></a>
-                                </div>
-                                <!-- // end .courses-link-wrap -->
-                            </div>
-                        </div>
-                        <!-- // end .course-img-wrap -->
-                        <div class="courses_icon">
-                            <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
-                        </div>
-                        <a href="course-detail.html" class="course-box-content">
-                            <h3>History</h3>
-                            <p>When an unknown printer took a galley...</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <div class="courses_box mb-5">
-                        <div class="course-img-wrap">
-                            <img src="images/courses_3.jpg" class="img-fluid" alt="courses-img">
-                            <div class="courses_box-img">
-                                <div class="courses-link-wrap">
-                                    <a href="course-detail.html" class="course-link"><span>course Details </span></a>
-                                    <a href="admission-form.html" class="course-link"><span>Join today </span></a>
-                                </div>
-                                <!-- // end .courses-link-wrap -->
-                            </div>
-                        </div>
-                        <!-- // end .course-img-wrap -->
-                        <div class="courses_icon">
-                            <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
-                        </div>
-                        <a href="course-detail.html" class="course-box-content">
-                            <h3>Human Sciences</h3>
-                            <p>When an unknown printer took a galley...</p>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
-                    <div class="courses_box mb-5">
-                        <div class="course-img-wrap">
-                            <img src="images/courses_4.jpg" class="img-fluid" alt="courses-img">
-                            <div class="courses_box-img">
-                                <div class="courses-link-wrap">
-                                    <a href="course-detail.html" class="course-link"><span>course Details </span></a>
-                                    <a href="admission-form.html" class="course-link"><span>Join today </span></a>
-                                </div>
-                                <!-- // end .courses-link-wrap -->
-                            </div>
-                        </div>
-                        <!-- // end .course-img-wrap -->
-                        <div class="courses_icon">
-                            <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
-                        </div>
-                        <a href="course-detail.html" class="course-box-content">
-                            <h3>Earth Sciences</h3>
-                            <p>When an unknown printer took a galley...</p>
-                        </a>
-                    </div>
-                </div>
+                <?php
+                    }
+                ?>
             </div>
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <a href="#" class="btn btn-default btn-courses">View all courses</a>
+                    <a href="academics.php" class="btn btn-default btn-courses">View all courses</a>
                 </div>
             </div>
         </div>
@@ -310,7 +268,7 @@
                         <img src="images/chart-icon_1.png" class="img-fluid" alt="chart_icon">
                     </div>
                     <div class="chart-text">
-                        <p><span class="counter">39</span> Teachers
+                        <p><span class="counter">20</span> Teachers
                         </p>
                     </div>
                 </div>
@@ -319,7 +277,7 @@
                         <img src="images/chart-icon_2.png" class="img-fluid" alt="chart_icon">
                     </div>
                     <div class="chart-text">
-                        <p><span class="counter">2600</span> Students
+                        <p><span class="counter">25</span> Students
                         </p>
                     </div>
                 </div>
@@ -328,7 +286,7 @@
                         <img src="images/chart-icon_3.png" class="img-fluid" alt="chart_icon">
                     </div>
                     <div class="chart-text">
-                        <p><span class="counter">56</span> Courses
+                        <p><span class="counter">24</span> Courses
                         </p>
                     </div>
                 </div>
@@ -337,7 +295,7 @@
                         <img src="images/chart-icon_4.png" class="img-fluid" alt="chart_icon">
                     </div>
                     <div class="chart-text">
-                        <p><span class="counter">13</span> Years Exp.</p>
+                        <p><span class="counter">2</span> Years Exp.</p>
                     </div>
                 </div>
             </div>
@@ -438,9 +396,6 @@
         </div>
     </section>
     <!--//END OUR BLOG -->
-    <!--============================= Instagram Feed =============================-->
-    <div id="instafeed"></div>
-    <!--//END Instagram feed JS -->
     <!--============================= FOOTER =============================-->
      <?php 
     include 'includes/footer.php';

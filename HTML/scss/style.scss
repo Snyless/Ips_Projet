@@ -78,7 +78,7 @@ p {
 }
 
 a {
-    color: $gold;
+    color: $black;
     transition: all 0.3s ease;
     &:hover {
         text-decoration: none;
@@ -1518,7 +1518,7 @@ footer h3 {
 }
 
 .course_filter {
-    padding: 33px 30px;
+    padding: 20px 20px 15px 20px;
     background: $gold;
     border-radius: 2px;
     .form-control {

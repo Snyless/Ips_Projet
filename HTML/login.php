@@ -1,9 +1,36 @@
+<?php
+    include 'includes/session.php';
+    include 'includes/database.php';
+    include 'includes/header.php';
+    
+   
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form 
+      
+      $myusername = mysqli_real_escape_string($conn,$_POST['username']);
+      $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
+      //echo $myusername,$mypassword;
+      $sql = "SELECT id_user FROM user WHERE username = '$myusername' and psw = '$mypassword'";
+      $result = mysqli_query($conn,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      //$active = $row['active'];
+      
+      $count = mysqli_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+		
+      if($count == 1) {
+         $_SESSION['login_user'] = $myusername;
+         
+         header("location: index.php");
+      }else {
+         $error = "Your Login Name or Password is invalid";
+      }
+    }
+            
+    ?>
 <!DOCTYPE html>
 <html lang="en">
-
-   <?php
-            include 'includes/header.php';
-            ?>
 <body>
     <!-- ========================= ABOUT IMAGE =========================-->
     <div class="about_bg">
@@ -36,7 +63,7 @@
                           <div class="row">
                               <div class="col-md-12">
                                   <div class="well">
-                                      <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                                      <form id="loginForm" method="POST" action="" novalidate="novalidate">
                                           <div class="form-group">
                                               <label for="username" class="control-label">Username</label>
                                               <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">
@@ -52,7 +79,8 @@
                                                   <input type="checkbox" name="remember" id="remember"> Remember login
                                               </label>
                                           </div>
-                                          <button type="submit" class="btn btn-warning" id="js-subscribe-btn">LOG IN</button>                                          </form>
+                                          <button type="submit" class="btn btn-warning" id="js-subscribe-btn">LOG IN</button>                                          
+                                      </form>
                                       </div>
                                   </div>
 

@@ -14,16 +14,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="foot-logo">
                     <a href="index.html">
-                        <img src="images/footer-logo.png" class="img-fluid" alt="footer_logo">
+                        <img src="images/logo2.png" class="img-fluid" alt="footer_logo">
                     </a>
-                    <p>2016 © copyright
+                    <p>2018 © copyright
                         <br> All rights reserved.</p>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="sitemap">
                         <h3>Navigation</h3>
                         <ul>
@@ -36,20 +36,11 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="tweet_box">
-                        <h3>Tweets</h3>
-                        <div class="tweet-wrap">
-                            <div class="tweet"></div>
-                            <!-- // end .tweet -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
                     <div class="address">
                         <h3>Contact us</h3>
-                        <p><span>Address: </span> Unisco university Albany, NY, USA. 11001</p>
-                        <p>Email : info@unisco.com
-                            <br> Phone : +91 555 668 986</p>
+                        <p><span>Address: </span> Faculty of Science, Mohammed V- Agdal University, P.O.B: 1014 Avenue Ibn Battouta, Rabat, Morocco</p>
+                        <p>Email : masterips@gmail.com
+                            <br> Phone : +212 6 06 06 06 06</p>
                             <ul class="footer-social-icons">
                                 <li><a href="#"><i class="fa fa-facebook fa-fb" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin fa-in" aria-hidden="true"></i></a></li>
