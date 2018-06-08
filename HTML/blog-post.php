@@ -1,3 +1,18 @@
+<?php
+    include'includes/session.php';
+    include 'includes/header.php';
+    include 'includes/database.php';
+    if(isset($_GET['id'])){
+      $id = $_GET['id'];
+    } else {
+      echo "failed";
+    }
+    $data = mysqli_query($conn,"SELECT * FROM blog WHERE id_blog=$id");
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,26 +47,31 @@
                 <div class="blog-img_block">
                     <img src="images/blog/blog-img_01.jpg" class="img-fluid" alt="blog-img">
                     <div class="blog-date">
-                        <span>5-08-16</span>
+                         <?php 
+    while($info = mysqli_fetch_array( $data, MYSQLI_BOTH )){
+?>
+                        <span><?php echo date('D',strtotime($info['date'])); ?>-<?php echo date('M',strtotime($info['date'])); ?>-<?php echo date('Y',strtotime($info['date'])); ?></span>
                     </div>
                 </div>
+               
                 <div class="blog-tiltle_block">
-                    <h4>Blog Heading here One line</h4>
-                    <h6> <a href="#"><i class="fa fa-user" aria-hidden="true"></i><span>admin</span> </a>  |   <a href="#"><i class="fa fa-tags" aria-hidden="true"></i><span>Education</span></a></h6>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type</p>
+                    <h4><?php echo"{$info['titre']}"; ?> </h4>
+                    <h6> <a href="#"><i class="fa fa-user" aria-hidden="true"></i><span><?php echo"{$info['nom']}"; ?><?php echo"{$info['prenom']}"; ?></span> </a>  |   <a href="#"><i class="fa fa-tags" aria-hidden="true"></i><span>Education</span></a></h6>
+                   
                 </div>
-                <blockquote class="blogpost-quotes">
-                    <span><i class="fa fa-quote-left" aria-hidden="true"></i></span>
-                    <p>Many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose. </p>
-                    <span class="quote-right"><i class="fa fa-quote-right" aria-hidden="true"></i></span>
-                </blockquote>
-                <div class="blog-tiltle_block">
-                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions.</p>
-                    <span class="blogpost_list">Cras sed ante sagittis, imperdiet purus non, molestie nisi.</span>
-                    <br>
-                    <span class="blogpost_list">Quisque pellentesque ligula sed augue euismod, sit amet accumsa</span>
-                    <br>
-                    <span class="blogpost_list">Sed varius velit sit amet tortor interdum tincidunt.</span>
+                <br>
+                <br>
+                 <div class="admission-pdf">
+                    <i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i>
+                    <p> details PDF
+                        <?php  
+                        $nom=$info['nom_file'] ;?>
+                        <br>
+                        
+                        <a href="<?php echo"{$info['nom_file']}"; ?>">DOWLOAD</a>
+                    </p>
+                </div>
+               
                     <div class="blog-icons">
                         <div class="blog-share_block">
                             <ul>
@@ -62,6 +82,9 @@
                             </ul>
                         </div>
                     </div>
+                     <?php 
+   }
+   ?>
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs blogpost-tab-wrap" role="tablist">
                         <li class="nav-item blogpost-nav-tab">
@@ -149,70 +172,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <form>
-                    <input type="text" placeholder="Search" class="blog-search">
-                    <a href="#" class="btn btn-warning btn-blogsearch">SEARCH</a>
-                </form>
-                <div class="blog-category_block">
-                    <h3>Category</h3>
-                    <ul>
-                        <li><a href="#">Vivamus elementum elit<i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                        <li><a href="#">Maecenas ut dui at lorem  <i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                        <li><a href="#">Quisque quis libero quis augue  <i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                        <li><a href="#">Curabitur consequat odio<i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                        <li><a href="#">Aliquam tristique turpis<i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
-                <div class="blog-featured_post">
-                    <h3>Featured Post</h3>
-                    <div class="blog-featured-img_block">
-                        <img src="images/blog/blogpost-img_01.jpg" class="img-fluid" alt="blog-featured-img">
-                        <h5>Heading</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typeset</p>
-                    </div>
-                    <hr>
-                </div>
-                <div class="blog-featured_post">
-                    <div class="blog-featured-img_block">
-                        <img src="images/blog/blogpost-img_02.jpg" class="img-fluid" alt="blog-featured-img">
-                        <h5>Heading</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typeset</p>
-                    </div>
-                    <hr>
-                </div>
-                <div class="blog-featured_post">
-                    <div class="blog-featured-img_block">
-                        <img src="images/blog/blogpost-img_03.jpg" class="img-fluid" alt="blog-featured-img">
-                        <h5>Heading</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typeset</p>
-                    </div>
-                </div>
-                <div class="blog-tags_wrap">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Tags</h3>
-                        </div>
-                        <a href="#" class="blog-tags">
-                            <span>Education</span>
-                        </a>
-                        <a href="#" class="blog-tags">
-                            <span>Calass</span>
-                        </a>
-                        <a href="#" class="blog-tags">
-                            <span>Seat</span>
-                        </a>
-                        <a href="#" class="blog-tags">
-                            <span>Teachers</span>
-                        </a>
-                        <a href="#" class="blog-tags">
-                            <span>Library</span>
-                        </a>
-                        <a href="#" class="blog-tags">
-                            <span>Food</span>
-                        </a>
-                    </div>
-                </div>
+           
             </div>
         </div>
     </div>

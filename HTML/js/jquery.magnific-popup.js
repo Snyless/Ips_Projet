@@ -105,7 +105,7 @@ var _mfpOn = function(name, f) {
 	},
 	// CSS transition detection, http://stackoverflow.com/questions/7264899/detect-css-transitions-using-javascript-and-without-modernizr
 	supportsTransitions = function() {
-		var s = document.createElement('p').style, // 's' for style. better to create an element if body yet to exist
+		var s = document.createElement('p').style, // 's' for style. better to CREATE OR REPLACEan element if body yet to exist
 			v = ['ms','O','Moz','Webkit']; // 'v' for vendor
 
 		if( s['transition'] !== undefined ) {
