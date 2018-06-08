@@ -60,9 +60,9 @@
                         <div class="courses_icon">
                             <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
                         </div>
-                        <a href="course-detail.html" class="course-box-content">
-                            <h3><?php echo"{$info['titulaire']}"; ?></h3>
-                            <p><?php
+                        <a href="course-detail.php?id=<?php echo"{$info['id_cours']}"; ?>" class="course-box-content">
+                            <h3 style="color:#000;"><?php echo"{$info['titulaire']}"; ?></h3>
+                            <p style="color:#000;"><?php
                                     $post = substr($info['description'], 0, 50); 
                                     echo $post . "..."; ?></p>
                         </a>
@@ -98,9 +98,9 @@
                         <div class="courses_icon">
                             <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
                         </div>
-                        <a href="course-detail.html" class="course-box-content">
-                            <h3><?php echo"{$info2['titulaire']}"; ?></h3>
-                            <p><?php
+                        <a href="course-detail.php?id=<?php echo"{$info['id_cours']}"; ?>" class="course-box-content">
+                            <h3 style="color:#000;"><?php echo"{$info2['titulaire']}"; ?></h3>
+                            <p style="color:#000;"><?php
                                     $post = substr($info2['description'], 0, 50); 
                                     echo $post . "..."; ?></p>
                         </a>
@@ -136,9 +136,9 @@
                         <div class="courses_icon">
                             <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
                         </div>
-                        <a href="course-detail.html" class="course-box-content">
-                            <h3><?php echo"{$info3['titulaire']}"; ?></h3>
-                            <p><?php
+                        <a href="course-detail.php?id=<?php echo"{$info['id_cours']}"; ?>" class="course-box-content">
+                            <h3 style="color:#000;"><?php echo"{$info3['titulaire']}"; ?></h3>
+                            <p style="color:#000;"><?php
                                     $post = substr($info3['description'], 0, 50); 
                                     echo $post . "..."; ?></p>
                         </a>
@@ -174,9 +174,9 @@
                         <div class="courses_icon">
                             <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
                         </div>
-                        <a href="course-detail.html" class="course-box-content">
-                            <h3><?php echo"{$info4['titulaire']}"; ?></h3>
-                            <p><?php
+                        <a href="course-detail.php?id=<?php echo"{$info['id_cours']}"; ?>" class="course-box-content">
+                            <h3 style="color:#000;"><?php echo"{$info4['titulaire']}"; ?></h3>
+                            <p style="color:#000;"><?php
                                     $post = substr($info4['description'], 0, 50); 
                                     echo $post . "..."; ?></p>
                         </a>

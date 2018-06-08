@@ -98,7 +98,7 @@
     </section>
     <!--//END ABOUT -->
     <!--============================= OUR COURSES =============================-->
-    <section class="our_courses">
+    <section class="our_courses" id="our_courses">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -124,7 +124,7 @@
                         <div class="courses_icon">
                             <img src="images/plus-icon.png" class="img-fluid close-icon" alt="plus-icon">
                         </div>
-                        <a href="course-detail.html" class="course-box-content">
+                        <a href="course-detail.php?id=<?php echo"{$info['id_cours']}"; ?>" class="course-box-content">
                             <h3><?php echo"{$info['titulaire']}"; ?></h3>
                             <p><?php
                                     $post = substr($info['description'], 0, 50); 
@@ -360,7 +360,7 @@
      <?php 
     include 'includes/footer.php';
     ?>
-    <div class="footern"></div>
+    <div id="footern"></div>
            
         </body>
 
