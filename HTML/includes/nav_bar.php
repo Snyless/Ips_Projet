@@ -35,9 +35,9 @@
                                         <?php echo $login_session ?>
                                     </a>
                                     <ul class="dropdown-menu">
-                                     <li><a class="dropdown-item" href="index-2.php">Profile</a></li>
-                                     <li><a class="dropdown-item" href="index-video.php">Dashborad</a></li>
-                                     <li><a class="dropdown-item" href="logout.php">Deconnexion</a></li>
+                                     <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                                     <li><a class="dropdown-item" href="index-video.php">Dashboard</a></li>
+                                     <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
                                     </ul>
                                 </li>
                                 <?php
