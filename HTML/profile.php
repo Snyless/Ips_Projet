@@ -35,24 +35,13 @@
 <section class="blog-wrap">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                        <div class="blog-category_block pt-0">
-                            <h3>Personal settings</h3>
-                            <ul>
-                                <li><a href="profile.php">Profile<i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                               <!-- <li><a href="absence.php">Absence  <i class="fa fa-caret-right" aria-hidden="true"></i></a></li>
-                                <li><a href="note.php">Note  <i class="fa fa-caret-right" aria-hidden="true"></i></a></li> -->
-                                <li><a href="account.php">Account<i class="fa fa-caret-right" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-            </div>
-
-        <div class="col-md-8">
-                 <div class="teacher-profile_block ">
-                            <h4>Basic information</h4>
+        <div class="col-md-12">
+                <div class="contact-title">
+                    <h2>Basic informations</h2>
+                </div>
+                            
                
-                </div> 
+             
 
             <div  class="modal-dialog modal-lg">
 
@@ -141,86 +130,9 @@
 
             </div>
 
-<div class='row'>
-<div class='col-md-5 offset-md-7'>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-simple btn-1 btn-default-clr" data-toggle="modal"  data-target="#modify">Modify informations
-</button>
-</div>
-         </div>
+   </div> 
 
-            </div>
-        </div>
-    </div>
-</section>
-
-</div>
-
-<!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="modify" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      
-
-
-
-       <div class="login">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-               <div id="login-overlay" class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-body">
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <div class="well">
-                                      <form id="loginForm" method="POST" action="" novalidate="novalidate">
-                                          <div class="form-group">
-                                              <label  class="control-label">Username</label>
-                                              <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">
-                                              <span class="help-block"></span>
-                                          </div>
-                                          <div class="form-group">
-                                              <label  class="control-label">Password</label>
-                                              <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
-                                              <span class="help-block"></span>
-                                          </div>
-                                          <div class="checkbox">
-                                              <label>
-                                                  <input type="checkbox" name="remember" id="mod"> Remember login
-                                              </label>
-                                          </div>
-                                          <button type="submit" class="btn btn-warning" id="js-subscribe-btn">SAVE</button>                                          
-                                      </form>
-                                      </div>
-                                  </div>
-
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!--//End Login -->
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+  
 
 
 <!--//END BLOG -->
