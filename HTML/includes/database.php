@@ -5,7 +5,7 @@ $password = "";
 $database = "masterips";
 
 
-// Create connection
+// CREATE OR REPLACEconnection
 $conn = new mysqli($servername, $username, $password, $database);
 
 // Check connection

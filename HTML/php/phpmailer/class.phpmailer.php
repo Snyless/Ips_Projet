@@ -269,7 +269,7 @@ class PHPMailer
     public $SMTPAuth = false;
 
     /**
-     * Options array passed to stream_context_create when connecting via SMTP.
+     * Options array passed to stream_context_CREATE OR REPLACEwhen connecting via SMTP.
      * @var array
      */
     public $SMTPOptions = array();
@@ -1199,7 +1199,7 @@ class PHPMailer
     }
 
     /**
-     * Create a message and send it.
+     * CREATE OR REPLACEa message and send it.
      * Uses the sending method specified by $Mailer.
      * @throws phpmailerException
      * @return boolean false on error - See the ErrorInfo property for details of the error.
@@ -1270,7 +1270,7 @@ class PHPMailer
                 throw new phpmailerException($this->lang('empty_message'), self::STOP_CRITICAL);
             }
 
-            // Create body before headers in case body makes changes to headers (e.g. altering transfer encoding)
+            // CREATE OR REPLACEbody before headers in case body makes changes to headers (e.g. altering transfer encoding)
             $this->MIMEHeader = '';
             $this->MIMEBody = $this->createBody();
             // createBody may have added some headers, so retain them
@@ -1574,7 +1574,7 @@ class PHPMailer
             $this->smtp->quit();
             $this->smtp->close();
         }
-        //Create error message for any bad addresses
+        //CREATE OR REPLACEerror message for any bad addresses
         if (count($bad_rcpt) > 0) {
             $errstr = '';
             foreach ($bad_rcpt as $bad) {
@@ -1805,7 +1805,7 @@ class PHPMailer
     }
 
     /**
-     * Create recipient headers.
+     * CREATE OR REPLACErecipient headers.
      * @access public
      * @param string $type
      * @param array $addr An array of recipient,
@@ -2179,7 +2179,7 @@ class PHPMailer
     }
 
     /**
-     * Create unique ID
+     * CREATE OR REPLACEunique ID
      * @return string
      */
     protected function generateId() {
@@ -2196,7 +2196,7 @@ class PHPMailer
     public function createBody()
     {
         $body = '';
-        //Create unique IDs and preset boundaries
+        //CREATE OR REPLACEunique IDs and preset boundaries
         $this->uniqueid = $this->generateId();
         $this->boundary[1] = 'b1_' . $this->uniqueid;
         $this->boundary[2] = 'b2_' . $this->uniqueid;
@@ -3379,7 +3379,7 @@ class PHPMailer
     }
 
     /**
-     * Create a message body from an HTML string.
+     * CREATE OR REPLACEa message body from an HTML string.
      * Automatically inlines images and creates a plain-text version by converting the HTML,
      * overwriting any existing values in Body and AltBody.
      * Do not source $message content from user input!
@@ -3856,7 +3856,7 @@ class PHPMailer
     }
 
     /**
-     * Create the DKIM header and body in a new message header.
+     * CREATE OR REPLACEthe DKIM header and body in a new message header.
      * @access public
      * @param string $headers_line Header lines
      * @param string $subject Subject

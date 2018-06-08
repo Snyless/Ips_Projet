@@ -13,16 +13,16 @@
                                     <a class="nav-link" href="about.php">About<span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="admission-form.php">Admissions</a>
+                                    <a class="nav-link" href="academics.php">Courses</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="academics.php">Academics</a>
+                                    <a class="nav-link" href="event.php">Events</a>
                                 </li>
                                 <li class="nav-logo">
                                     <a href="index.php" class="navbar-brand"><img src="images/logo2.png" class="img-fluid" alt="logo"></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="research.php">Research</a>
+                                    <a class="nav-link" href="blog.php">Blogs</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.php">Contact</a>
@@ -32,12 +32,18 @@
                                 ?>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?php echo $login_session ?>
+                                        <?php echo $login_session['username'] ?>
                                     </a>
                                     <ul class="dropdown-menu">
+<<<<<<< HEAD
                                      <li><a class="dropdown-item" href="profile.php">Profile</a></li>
                                      <li><a class="dropdown-item" href="index-video.php">Dashboard</a></li>
                                      <li><a class="dropdown-item" href="logout.php">SIGN OUT</a></li>
+=======
+                                     <li><a class="dropdown-item" href="index-2.php">Profile</a></li>
+                                     <li><a class="dropdown-item" href="dashboard/index.php">Dashborad</a></li>
+                                     <li><a class="dropdown-item" href="logout.php">Deconnexion</a></li>
+>>>>>>> origin/master
                                     </ul>
                                 </li>
                                 <?php

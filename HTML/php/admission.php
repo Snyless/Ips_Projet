@@ -39,7 +39,7 @@ if (isset($email) && isset($name)) {
 date_default_timezone_set('Etc/UTC');
 
 require 'phpmailer/PHPMailerAutoload.php';
-//Create a new PHPMailer instance
+//CREATE OR REPLACEa new PHPMailer instance
 $mail = new PHPMailer;
 //Set who the message is to be sent from
 $mail->setFrom($server_email, $name);

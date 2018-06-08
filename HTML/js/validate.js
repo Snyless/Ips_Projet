@@ -757,7 +757,7 @@ $.extend( $.validator, {
 				// replace message on existing label
 				error.html( message );
 			} else {
-				// create error element
+				// CREATE OR REPLACEerror element
 				error = $( "<" + this.settings.errorElement + ">" )
 					.attr( "id", elementID + "-error" )
 					.addClass( this.settings.errorClass )
@@ -1072,7 +1072,7 @@ $.extend( $.validator, {
 		});
 
 		if ( $.validator.autoCreateRanges ) {
-			// auto-create ranges
+			// auto-CREATE OR REPLACEranges
 			if ( rules.min != null && rules.max != null ) {
 				rules.range = [ rules.min, rules.max ];
 				delete rules.min;
