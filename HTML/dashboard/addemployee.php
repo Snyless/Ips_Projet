@@ -3,7 +3,7 @@ require_once("../includes/session.php");
 
 
 if (isset($_POST['ok'])){
-    $employee_id = $login_session['id_emp'];
+    $employee_id = $login_session['id_user'];
     $firstname  = $_POST['firstname'];
     $lastname  = $_POST['lastname'];
     $phone =  $_POST['phone'];
@@ -13,7 +13,7 @@ if (isset($_POST['ok'])){
     $city  = $_POST['city'];
     $country  =  $_POST['country'];
     $password = $_POST['password'];
-    $stmt = $user->runQuery("INSERT INTO employee (firstname,lastname,phone,email,id_manager,title,department,city,country,password) VALUES ('$firstname','$lastname','$phone','$email','$employee_id','$title','$department','$city','$country','$password')");
+    $stmt = $user->runQuery("INSERT INTO emse (firstname,lastname,phone,email,id_manager,title,department,city,country,password) VALUES ('$firstname','$lastname','$phone','$email','$employee_id','$title','$department','$city','$country','$password')");
     $stmt->execute();
 
 }
