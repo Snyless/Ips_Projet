@@ -31,7 +31,10 @@ if (isset($_POST['ok'])){
     $dob = $login_session['dob'] =  $_POST['dob'];
       $psw = $login_session['psw'] =  $_POST['psw']; 
         $npsw = $login_session['npsw'] =  $_POST['npsw']; 
+<<<<<<< HEAD
                 $licence = 0;
+=======
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
         $licence = $login_session['licence'] =  $_POST['licence']; 
         if(empty($nom)){
              $nom=$ligne['nom'];
@@ -192,8 +195,13 @@ if (isset($_POST['ok'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-globe"></i>
                                         </div>
+<<<<<<< HEAD
                        <input type="text" class="form-control" name="licence"  value="<?php print($licence)?>" onfocus="(this.value == '<?php print($licence)?>') && (this.value = '')"
                                                onblur="(this.value == '') && (this.value = '<?php print($licence)?>')">
+=======
+                       <input type="text" class="form-control" name="licence"  value="<?php print($login_session['licence'])?>" onfocus="(this.value == '<?php print($login_session['licence'])?>') && (this.value = '')"
+                                               onblur="(this.value == '') && (this.value = '<?php print($login_session['licence'])?>')">
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
                                   
                                 </div>        </div>
                                 <div class="form-group">
@@ -247,6 +255,34 @@ if (isset($_POST['ok'])){
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+<<<<<<< HEAD
+=======
+<?php print($login_session['dob']);
+echo "lklklkkl";
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
     <!-- Main Footer -->
     <footer class="main-footer">
         <!-- To the right -->
@@ -254,7 +290,11 @@ if (isset($_POST['ok'])){
           
         </div>
         <!-- Default to the left -->
+<<<<<<< HEAD
         <strong>Copyright &copy; 2018 <a href="#">MASTER IPS</a>.</strong> All rights reserved.
+=======
+        <strong>Copyright &copy; 2017 <a href="#">Coligz App</a>.</strong> All rights reserved.
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
     </footer>
 
 

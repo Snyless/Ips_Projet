@@ -36,7 +36,11 @@
                                     </a>
                                     <ul class="dropdown-menu">
 
+<<<<<<< HEAD
                                      <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+=======
+                                     <li><a class="dropdown-item" href="index-2.php">Profile</a></li>
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
                                      <li><a class="dropdown-item" href="dashboard/index.php">Dashboard</a></li>
                                      <li><a class="dropdown-item" href="logout.php">Deconnexion</a></li>
 

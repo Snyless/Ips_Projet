@@ -86,20 +86,12 @@
 
                 <!-- Sidebar Menu -->
                 <ul class="sidebar-menu">
-<<<<<<< HEAD
-                    <li><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                    <li><a href="note.php"><i class="fa fa-link"></i> <span>note</span></a></li>
-                    <li><a href="showabsence.php"><i class="fa fa-link"></i> <span>Absence</span></a></li>
-                    <li><a href="edit_profile_etudiant.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
-=======
                     <li class="active"><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                    <li><a href="note.php"><i class="fa fa-link"></i> <span>note</span></a></li>
-                    <li><a href="absence.php"><i class="fa fa-link"></i> <span>Absence</span></a></li>
+                    <li><a href="addemployee.php"><i class="fa fa-link"></i> <span>note</span></a></li>
+                    <li><a href="listemployees.php"><i class="fa fa-link"></i> <span>Absence</span></a></li>
                     <li><a href="leaverequest.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
-                    <li><a href="leaveplanning.php"><i class="fa fa-link"></i> <span>leaveplanning</span></a></li>
-                    <li><a href="edit_profile_etudiant.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
-                    <li><a href="addemployee.php"><i class="fa fa-link"></i> <span>addemployee</span></a></li>
->>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
+                    <li><a href="leaveplanning.php"><i class="fa fa-link"></i> <span>x</span></a></li>
+                    <li><a href="profile.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

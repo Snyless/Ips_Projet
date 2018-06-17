@@ -12,7 +12,11 @@ $sql2="Select distinct semestre from cours c ,exam e where e.id_cours=c.id_cours
 
 <body class="hold-transition skin-blue sidebar-mini">
 <?php
+<<<<<<< HEAD
 if ($login_session['type'] == 2) {
+=======
+if ($login_session['type'] == 1) {
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
     include'nav_etudiant.php';
     ?>
     
@@ -144,7 +148,11 @@ if ($login_session['type'] == 2) {
                 by Dream Team
             </div>
             <!-- Default to the left -->
+<<<<<<< HEAD
             <strong>Copyright &copy; 2018 <a href="#">Master IPS</a>.</strong> All rights reserved.
+=======
+            <strong>Copyright &copy; 2017 <a href="#">Master IPS</a>.</strong> All rights reserved.
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
         </footer>
 
 

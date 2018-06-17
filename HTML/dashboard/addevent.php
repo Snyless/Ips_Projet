@@ -6,17 +6,31 @@ $req="SELECT * from user  where  username ='$user'";
 
 
 if (isset($_POST['ok'])){
+<<<<<<< HEAD:HTML/dashboard/addevent.php
     $username = $_POST['username'];
     $password = $_POST['password'];
+=======
+    $employee_id = $login_session['id_user'];
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851:HTML/dashboard/addemployee.php
     $firstname  = $_POST['firstname'];
     $lastname  = $_POST['lastname'];
     $birth = $_POST['birth'];
     $adresse = $_POST['adresse'];
     $phone =  $_POST['phone'];
     $email =  $_POST['email'];
+<<<<<<< HEAD:HTML/dashboard/addevent.php
     $stmt = "INSERT INTO user (type,username,psw,nom,prenom,date_N,adresse,tel,email,picture) VALUES ('2',$username','$password','$firstname','$lastname','$birth','$adresse','$phone','$email','dist/img/admin.png')";
     $query = $db->prepare($stmt);
     $query->execute();
+=======
+    $title =  $_POST['title'];
+    $department =  $_POST['department'];
+    $city  = $_POST['city'];
+    $country  =  $_POST['country'];
+    $password = $_POST['password'];
+    $stmt = $user->runQuery("INSERT INTO emse (firstname,lastname,phone,email,id_manager,title,department,city,country,password) VALUES ('$firstname','$lastname','$phone','$email','$employee_id','$title','$department','$city','$country','$password')");
+    $stmt->execute();
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851:HTML/dashboard/addemployee.php
 
 }
 

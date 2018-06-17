@@ -9,7 +9,11 @@ require_once("../includes/session.php");
 <body class="hold-transition skin-blue sidebar-mini">
 <?php
 if ($login_session['type'] == 1) {
+<<<<<<< HEAD
     include'nav_admin.php';
+=======
+    include'nav_etudiant.php';
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
     ?>
     
 
@@ -139,6 +143,7 @@ if ($login_session['type'] == 1) {
     <div class="control-sidebar-bg"></div>
 
 <?php
+<<<<<<< HEAD
 }
     
 else if ($login_session['type'] == 2) { include "nav_etudiant.php";
@@ -230,6 +235,11 @@ else if ($login_session['type'] == 2) { include "nav_etudiant.php";
 else if ($login_session['type'] == 3) { include "nav_enseignant.php";
     ?>
  
+=======
+}else { include "nav_enseignant";
+    ?>
+ 
+>>>>>>> 8e5099e66b6c5a89d00c2b97de22967fde272851
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
