@@ -24,7 +24,7 @@
          
          header("location: index.php");
       }else {
-         $error = "Your Login Name or Password is invalid";
+         $error = "Your Login Name or Password is invalid" . $count;
       }
     }
             
@@ -64,6 +64,12 @@
                               <div class="col-md-12">
                                   <div class="well">
                                       <form id="loginForm" method="POST" action="" novalidate="novalidate">
+                                          <div class="form-group">
+                                              <?php
+                                                if(isset($error))
+                                                    echo $error; 
+                                              ?>
+                                          </div>
                                           <div class="form-group">
                                               <label for="username" class="control-label">Username</label>
                                               <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">

@@ -1,16 +1,31 @@
 <?php
-require_once("session.php");
 
-require_once("class.user.php");
-$user = new USER();
+require_once("../includes/session.php");
+
+ $db = new PDO('mysql:host=localhost;dbname=masterips;charset=utf8', 'root', '');
+      
+
+       include'../includes/session.php';
+      $user=$_SESSION['login_user'] ; 
+         $sql9=" SELECT  * FROM  cours,user where user.username='$user'and user.id_user=cours.id_enseignant";
+         
+         $sql10="SELECT * FROM exam group by type";
+           
+        $sql7=" SELECT distinct * FROM user,note,exam  where exam.type='$id2_exam_type' and exam.id_exam=note.id_exam and exam.id_cours='$id_cours_req'  group by note.id_etudiant";
+
+
+
+
 
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Coligz | Control panel</title>
+    <title>MASTER IPS | Control panel</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -34,9 +49,9 @@ $user = new USER();
         <!-- Logo -->
         <a href="index.php" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>COL</b>IGZ</span>
+            <span class="logo-mini"><b>MASTER</b>IPS</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>COL</b>IGZ</span>
+            <span class="logo-lg"><b>MASTER</b>IPS</span>
         </a>
 
         <!-- Header Navbar -->
@@ -114,11 +129,10 @@ $user = new USER();
             <ul class="sidebar-menu">
                 <li><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
                 <li><a href="listemployees.php"><i class="fa fa-link"></i> <span>list of all employees</span></a></li>
-                <li class="active"><a href="teamemployees.php"><i class="fa fa-link"></i> <span>Team members</span></a></li>
+                <li><a href="teamemployees.php"><i class="fa fa-link"></i> <span>Team members</span></a></li>
                 <li><a href="sendleaverequest.php"><i class="fa fa-link"></i> <span>send Leave Request</span></a></li>
-                <li><a href="employeerequest.php"><i class="fa fa-link"></i> <span>My Leave Requests</span></a></li>
+                <li class="active"><a href="employeerequest.php"><i class="fa fa-link"></i> <span>My Leave Requests</span></a></li>
                 <li><a href="profile.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
-
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -129,7 +143,7 @@ $user = new USER();
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>My team members</h1>
+            <h1>Mark : </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                 <li class="active">Here</li>
@@ -137,36 +151,145 @@ $user = new USER();
         </section>
 
         <!-- Main content -->
-        <section class="content" style="height: 904px;">
+        <section class="content">
 
-            <?php
-            $manage_id = $login_session['id_manager'];
-            $stmt = $user->runQuery("SELECT * FROM employee WHERE id_manager = '$manage_id'");
-            $stmt->execute();
-            while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-                ?>
-                <div class="col-md-4">
-                    <div class="box box-widget widget-user-2">
-                        <div class="widget-user-header bg-yellow">
-                            <div class="widget-user-image">
-                                <img class="img-circle" src="<?php echo $row['picture']; ?>" alt="User Avatar">
-                            </div>
-                            <h3 class="widget-user-username"><?php echo $row['firstname']."&nbsp;".$row['lastname']; ?></h3>
-                            <h5 class="widget-user-desc"><?php echo $row['title']; ?></h5>
-                        </div>
-                        <div class="box-footer no-padding">
-                            <ul class="nav nav-stacked">
-                                <li><a href="#">Department <span class="pull-right badge bg-blue"><?php echo $row['department']; ?></span></a></li>
-                                <li><a href="#">Email <span class="pull-right badge bg-aqua"><?php echo $row['email']; ?></span></a></li>
-                                <li><a href="#">Phone <span class="pull-right badge bg-green"><?php echo $row['phone']; ?></span></a></li>
-                                <li><a href="#">City <span class="pull-right badge bg-red"><?php echo $row['city']; ?></span></a></li>
-                            </ul>
-                        </div>
+            
+
+                <form action="notes.php" method="GET" >
+                               
+                                <div class="form-group">
+                                    <label>Course :</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-book"></i>
+                                        </div>
+                                       <select class="form-control"  name="cours">
+   
+       <?php
+              
+        
+                  $query9 = $db->prepare($sql9);
+                  $query9->execute();
+
+                               
+                                while ($ligne =$query9->fetch()) {
+                                    ?>
+  <option  value=<?php echo"{$ligne['id_cours']}"; ?>  > <?php echo"{$ligne['titulaire']}"; ?> </option>
+  <?php
+                    }?>
+
+
+
+</select>
+
+</div></div>
+ 
+                                <div class="form-group">
+                                    <label>Type of Exam:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-pencil"></i>
+                                     </div>
+                                       <select class="form-control"  name="type2">
+   
+       <?php
+              
+              
+                  $query10 = $db->prepare($sql10);
+                  $query10->execute();
+
+                               
+                                while ($ligne5 =$query10->fetch()) {
+
+
+                                    echo"{$ligne5['type']}"; 
+                                    ?>
+
+
+  <option  value=<?php echo"{$ligne5['type']}"; ?>  > <?php echo"{$ligne5['type']}"; ?>  </option>
+  <?php
+                    }?>
+</select>
+  </div></div>
+                  <div class="box-footer">
+                                    <button type="submit" name="valider" class="btn btn-primary">Show Results</button>
+                                </div>
+</form>
+
+  <section class="content">
+                
+                <div class="row">
+                    <div class="col-xs-12" style="background-color: #FFFFFF;">
+                    <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover" style ="text-align:center;" >
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                             <th>MARK</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+
+                        </tr>
+                       
+                        
+                          
+                        
+
+
+                                <?php
+                              
+  
+   if (isset($_GET['valider'])){
+
+                                      $id2_exam_type= $_GET['type2'];
+                                      $id_cours_req = $_GET['cours'];
+                                     
+                                        $query7 = $db->prepare($sql7);
+                    
+                                                $query7->execute();
+                                      
+                                  
+                                      
+                                  
+                               
+
+ //$sql7="SELECT * FROM  note n INNER JOIN exam e ON e.id_exam= n.id_exam  and e.id_cours='1'  INNER JOIN user  u ON n.id_etudiant= u.id_user ";
+
+
+
+                               
+                                while ($row7 =$query7->fetch()) {
+
+
+
+                        
+                                ?>
+                                 <tr>  
+                          <th><?php echo $row7['nom']; ?></th>
+                          <th><?php echo $row7['prenom']; ?></th>
+                        
+                          <th><?php echo $row7['note_exam']; ?></th>
+                          
+
+    <th><a style="color:#228e35" href="Update_notes_form.php?id_etudiant=<?php echo"{$row7['id_etudiant']}"; ?>&amp;id_exam=<?php echo"{$row7['id_exam']}"; ?>&amp;name_user=<?php echo"{$row7['nom']}"; ?>&amp;lastname=<?php echo"{$row7['prenom']}"; ?>" >    <i class=" fa fa-edit green-icon"></i></a></th>
+        <th> <a   style="color:red"href="Delete_notes.php?id_etudiant=<?php echo"{$row7['id_etudiant']}"; ?>&amp;id_exam=<?php echo"{$row7['id_exam']}"; ?>" >  <i class=" fa fa-trash"></i> </a></th>
+
+                          
+
+
+                          
+                        </tr>
+ <?php
+                          }   
+                            }
+                            ?>
+
+                    </table>
+                    </div>
                     </div>
                 </div>
-                <?php
-            }
-            ?>
+ </section>
+            </section>
 
         </section>
         <!-- /.content -->
@@ -175,19 +298,21 @@ $user = new USER();
 
     <!-- Main Footer -->
     <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-            by love <3
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2017 <a href="#">Coligz App</a>.</strong> All rights reserved.
+        
     </footer>
 
 
 </div>
 <!-- /.tab-pane -->
-
+</div>
+</aside>
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+     immediately after the control sidebar -->
 <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->

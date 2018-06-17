@@ -1,26 +1,23 @@
 <?php
-require_once("session.php");
+$db = new PDO('mysql:host=localhost;dbname=masterips;charset=utf8', 'root', '');
+include'../includes/session.php';
+$user=$_SESSION['login_user'] ; 
+$req="SELECT * from user  where  username ='$user'";
 
-require_once("class.user.php");
-$user = new USER();
 
 if (isset($_POST['ok'])){
-    $employee_id = $login_session['id_emp'];
-    $firstname = $login_session['firstname'] = $_POST['firstname'];
-    $lastname = $login_session['lastname'] = $_POST['lastname'];
-    $phone = $login_session['phone'] = $_POST['phone'];
-    $email = $login_session['email'] = $_POST['email'];
-    $city = $login_session['city'] = $_POST['city'];
-    $country = $login_session['country'] =  $_POST['country'];
-    $stmt = $user->runQuery("UPDATE employee SET firstname='$firstname',lastname='$lastname',phone='$phone',email='$email',city='$city',country='$country' WHERE id_emp='$employee_id'");
-    $stmt->execute();
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $firstname  = $_POST['firstname'];
+    $lastname  = $_POST['lastname'];
+    $birth = $_POST['birth'];
+    $adresse = $_POST['adresse'];
+    $phone =  $_POST['phone'];
+    $email =  $_POST['email'];
+    $stmt = "INSERT INTO user (type,username,psw,nom,prenom,date_N,adresse,tel,email,picture) VALUES ('2',$username','$password','$firstname','$lastname','$birth','$adresse','$phone','$email','dist/img/admin.png')";
+    $query = $db->prepare($stmt);
+    $query->execute();
 
-    if ($_POST['password'] == $_POST['repassword']){
-        $password = $_POST['password'];
-        $stmt = $user->runQuery("UPDATE employee SET password = '$password'");
-    }else {
-        echo "Password are not the same!";
-    }
 }
 
 
@@ -30,7 +27,7 @@ if (isset($_POST['ok'])){
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Coligz | Control panel</title>
+    <title>MASTER IPS | Control panel</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -54,9 +51,9 @@ if (isset($_POST['ok'])){
         <!-- Logo -->
         <a href="index.php" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>COL</b>IGZ</span>
+            <span class="logo-mini"><b>MASTER</b>IPS</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>COL</b>IGZ</span>
+            <span class="logo-lg"><b>MASTER</b>IPS</span>
         </a>
 
         <!-- Header Navbar -->
@@ -73,18 +70,23 @@ if (isset($_POST['ok'])){
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="dist/img/admin.png" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?php print($login_session['firstname']."&nbsp;".$login_session['lastname']); ?></span>
+                        <img src="dist/img/admin.png" class="user-image" alt="User Image">
+                          <?php   $data=$db->prepare($req);
+                $data->execute();
+            while($ligne1=$data->fetch()){
+            	?>
+                            <span class="hidden-xs"><?php print($ligne1['nom']."&nbsp;".$ligne1['prenom']); ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="<?php print($login_session['picture'])?>" class="img-circle" alt="User Image">
+                                <img src="<?php print($ligne1['picture'])?>" class="img-circle" alt="User Image">
 
                                 <p>
-                                    <?php print($login_session['firstname']."&nbsp;".$login_session['lastname']."<small>".$login_session['title']."</small>"); ?>
+                                    <?php print($ligne1['nom']."&nbsp;".$ligne1['prenom']); ?>
                                 </p>
                             </li>
+                   
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
@@ -112,12 +114,15 @@ if (isset($_POST['ok'])){
                     <img src="dist/img/admin.png" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p><?php print($login_session['firstname']."&nbsp;".$login_session['lastname']); ?></p>
+                    <p><?php print($ligne1['nom']."&nbsp;".$ligne1['prenom']); ?></p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-
+<?php
+ $id_enseignant=$ligne1['id_user'];
+    }
+?>
             <!-- search form (Optional) -->
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
@@ -132,23 +137,12 @@ if (isset($_POST['ok'])){
 
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
-                <?php
-                if ($login_session['permission'] == 1) {
-                    ?>
                     <li><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                    <li><a href="addemployee.php"><i class="fa fa-link"></i> <span>Add Employee</span></a></li>
-                    <li><a href="listemployees.php"><i class="fa fa-link"></i> <span>list of all employees</span></a></li>
-                    <li><a href="leaverequest.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
-                    <li><a href="leaveplanning.php"><i class="fa fa-link"></i> <span>Leave request planning</span></a></li>
-                    <li class="active"><a href="profile.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
-                <?php }else { ?>
-                    <li><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                    <li><a href="listemployees.php"><i class="fa fa-link"></i> <span>list of all employees</span></a></li>
-                    <li><a href="teamemployees.php"><i class="fa fa-link"></i> <span>Team members</span></a></li>
-                    <li><a href="sendleaverequest.php"><i class="fa fa-link"></i> <span>send Leave Request</span></a></li>
-                    <li><a href="employeerequest.php"><i class="fa fa-link"></i> <span>My Leave Requests</span></a></li>
-                    <li class="active"><a href="profile.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
-                <?php } ?>
+                    <li><a href="addprof.php"><i class="fa fa-link"></i> <span>Add Prof</span></a></li>
+                    <li class="active"><a href="addstudent.php"><i class="fa fa-link"></i> <span>Add Student</span></a></li>
+                    <li><a href="addevent.php"><i class="fa fa-link"></i> <span>Add Event</span></a></li>
+                    <li><a href="addblog.php"><i class="fa fa-link"></i> <span>Add Blog</span></a></li>
+                    <li><a href="edit_profile_etudiant.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -159,7 +153,7 @@ if (isset($_POST['ok'])){
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Edit profile</h1>
+            <h1>Add Student</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                 <li class="active">Here</li>
@@ -173,18 +167,26 @@ if (isset($_POST['ok'])){
                 <div class="row">
                     <div class="box box-danger">
                         <div class="box-header">
-                            <h3 class="box-title">Profile informations</h3>
+                            <h3 class="box-title">Prof informations</h3>
                         </div>
                         <div class="box-body">
-                            <form action="profile.php" method="post">
+                            <form action="addemployee.php" method="post">
+                                <div class="form-group">
+                                    <label>Username :</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="ion ion-person"></i>
+                                        </div>
+                                        <input type="text" class="form-control" name="username">
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label>First name :</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="ion ion-person"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="firstname" value="<?php print($login_session['firstname'])?>" onfocus="(this.value == '<?php print($login_session['firstname'])?>') && (this.value = '')"
-                                               onblur="(this.value == '') && (this.value = '<?php print($login_session['firstname'])?>')">
+                                        <input type="text" class="form-control" name="firstname">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -193,8 +195,16 @@ if (isset($_POST['ok'])){
                                         <div class="input-group-addon">
                                             <i class="ion ion-person"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="lastname" value="<?php print($login_session['lastname'])?>" onfocus="(this.value == '<?php print($login_session['lastname'])?>') && (this.value = '')"
-                                               onblur="(this.value == '') && (this.value = '<?php print($login_session['lastname'])?>')">
+                                        <input type="text" class="form-control" name="lastname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Birth date :</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="ion ion-calendar"></i>
+                                        </div>
+                                        <input type="text" class="form-control" name="birth">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -203,8 +213,7 @@ if (isset($_POST['ok'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-phone"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="phone"  value="<?php print($login_session['phone'])?>" onfocus="(this.value == '<?php print($login_session['phone'])?>') && (this.value = '')"
-                                               onblur="(this.value == '') && (this.value = '<?php print($login_session['phone'])?>')">
+                                        <input type="text" class="form-control" name="phone">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -213,28 +222,16 @@ if (isset($_POST['ok'])){
                                         <div class="input-group-addon">
                                             <i class="fa fa-envelope-o"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="email"  value="<?php print($login_session['email'])?>" onfocus="(this.value == '<?php print($login_session['email'])?>') && (this.value = '')"
-                                               onblur="(this.value == '') && (this.value = '<?php print($login_session['email'])?>')">
+                                        <input type="text" class="form-control" name="email">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>City :</label>
+                                    <label>Adresse :</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-map-marker"></i>
+                                            <i class="ion ios-locate-outline"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="city"  value="<?php print($login_session['city'])?>" onfocus="(this.value == '<?php print($login_session['city'])?>') && (this.value = '')"
-                                               onblur="(this.value == '') && (this.value = '<?php print($login_session['city'])?>')">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Country :</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-globe"></i>
-                                        </div>
-                                        <input type="text" class="form-control" name="country"  value="<?php print($login_session['country'])?>" onfocus="(this.value == '<?php print($login_session['country'])?>') && (this.value = '')"
-                                               onblur="(this.value == '') && (this.value = '<?php print($login_session['country'])?>')">
+                                        <input type="text" class="form-control" name="adresse">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -244,15 +241,6 @@ if (isset($_POST['ok'])){
                                             <i class="fa fa-unlock-alt"></i>
                                         </div>
                                         <input type="password" class="form-control" name="password"  placeholder="***********">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Re-type new password :</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-unlock-alt"></i>
-                                        </div>
-                                        <input type="password" class="form-control" name="repassword"  placeholder="***********">
                                     </div>
                                 </div>
                                 <div class="box-footer">
@@ -273,10 +261,10 @@ if (isset($_POST['ok'])){
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            by love <3
+            by Dream Team 
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2017 <a href="#">Coligz App</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2017 <a href="#">Master IPS</a>.</strong> All rights reserved.
     </footer>
 
 

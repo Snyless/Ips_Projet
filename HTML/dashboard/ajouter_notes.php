@@ -1,8 +1,23 @@
 <?php
-require_once("session.php");
+require_once("../includes/session.php");
+$db = new PDO('mysql:host=localhost;dbname=masterips;charset=utf8', 'root', '');
+   
+   $id_exam=$_GET['id_exam'];
+include'../includes/session.php';
+      $user=$_SESSION['login_user'] ;
+        $req="SELECT * from user  where  username ='$user'";
 
-require_once("class.user.php");
-$user = new USER();
+if (isset($_POST['valider'])){
+ $note_exam = $_POST['note'];
+     $etudiant= $_POST['etudiant'];
+     $exam = $_POST['exam'];
+
+$sql3="INSERT INTO note (id_exam,note_exam,id_etudiant) VALUES ('$exam','$note_exam','$etudiant')";
+     $query3 = $db->prepare($sql3);
+     $query3->execute();
+    header("location:ajouter_notes.php?id_exam=$exam");
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -22,6 +37,9 @@ $user = new USER();
     <link rel="stylesheet" href="dist/css/style.min.css">
 
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+ 
+        <link rel="stylesheet" href="../css/table_css_absence.css" />
+      
 
 </head>
 
@@ -34,9 +52,9 @@ $user = new USER();
         <!-- Logo -->
         <a href="index.php" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>COL</b>IGZ</span>
+            <span class="logo-mini"><b>MASTER</b>IPS</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>COL</b>IGZ</span>
+            <span class="logo-lg"><b>MASTER</b>IPS</span>
         </a>
 
         <!-- Header Navbar -->
@@ -54,17 +72,22 @@ $user = new USER();
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
                             <img src="dist/img/admin.png" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?php print($login_session['firstname']."&nbsp;".$login_session['lastname']); ?></span>
+                            <?php   $data1=$db->prepare($req);
+                $data1->execute();
+            while($ligne=$data1->fetch()){
+                ?>
+                                                        <span class="hidden-xs"><?php print($ligne['nom']."&nbsp;".$ligne['prenom']); ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="<?php print($login_session['picture'])?>" class="img-circle" alt="User Image">
+                                <img src="<?php print($ligne['picture'])?>" class="img-circle" alt="User Image">
 
                                 <p>
-                                    <?php print($login_session['firstname']."&nbsp;".$login_session['lastname']."<small>".$login_session['title']."</small>"); ?>
+                                    <?php print($ligne['nom']."&nbsp;".$ligne['prenom']); ?>
                                 </p>
                             </li>
+                   
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
@@ -92,11 +115,13 @@ $user = new USER();
                     <img src="dist/img/admin.png" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p><?php print($login_session['firstname']."&nbsp;".$login_session['lastname']); ?></p>
+                    <p><?php print($ligne['nom']."&nbsp;".$ligne['prenom']); ?></p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
+             <?php    }
+                ?>
 
             <!-- search form (Optional) -->
             <form action="#" method="get" class="sidebar-form">
@@ -111,13 +136,14 @@ $user = new USER();
             <!-- /.search form -->
 
             <!-- Sidebar Menu -->
-            <ul class="sidebar-menu">
-                <li><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                <li><a href="addemployee.php"><i class="fa fa-link"></i> <span>Add Employee</span></a></li>
-                <li><a href="listemployees.php"><i class="fa fa-link"></i> <span>list of all employees</span></a></li>
-                <li><a href="leaverequest.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
-                <li class="active"><a href="leaveplanning.php"><i class="fa fa-link"></i> <span>Leave request planning</span></a></li>
-                <li><a href="profile.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
+           <ul class="sidebar-menu">
+                    <li><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+                    <li><a href="addCourses.php"><i class="fa fa-link"></i> <span>Add Courses </span></a></li>
+                    <li class="active"  ><a href="add_exam.php"><i class="fa fa-link"></i> <span>Add Marks </span></a></li>
+                    <li  ><a href="absence_detail.php."><i class="fa fa-link"></i> <span>Absence</span></a></li>
+                    <li ><a href="cours.php"><i class="fa fa-link"></i> <span>Update Courses</span></a></li>
+                     <li ><a href="notes.php"><i class="fa fa-link"></i> <span>Update Marks </span></a></li>
+                       <li  ><a href="delete_absence.php"><i class="fa fa-link"></i> <span>Update Absence  </span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -128,7 +154,7 @@ $user = new USER();
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Leave planning</h1>
+            <h1>Mark : </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                 <li class="active">Here</li>
@@ -136,66 +162,81 @@ $user = new USER();
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" style="height: 904px;">
 
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12" style="background-color: #FFFFFF;">
-                    <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover" style ="text-align:center;" >
-                            <tr>
-                                <th>_</th>
-                                <th>Employee</th>
-                                <th>Title</th>
-                                <th>Start date</th>
-                                <th>End date</th>
-                                <th>Status</th>
-                            </tr>
-                    <?php
-                    $stmt = $user->runQuery("SELECT * FROM employee LEFT JOIN leave_request ON id_emp = employee_id");
-                    $stmt->execute();
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-                            ?>
-                            <tr>
-                                <th><img class="img-circle" WIDTH="50" src="<?php echo $row['picture']; ?>" alt="User Avatar"></th>
-                                <th><?php echo $row['firstname']."&nbsp;".$row['lastname']; ?></th>
-                                <th><?php echo $row['title']; ?></th>
-                            <?php
-                            if ($row['employee_id'] !== NULL) {
-                                ?>
-                                <th><?php echo $row['startdate']; ?></th>
-                                <th><?php echo $row['enddate']; ?></th>
-                            <?php
-                            }else {echo "<th>__</th><th>__</th>";}
-                                if ($row['approved'] === 'Y'){
-                            ?>
-                                    <th><span class="label label-success">Approved</span></th>
-                            <?php
-                                }elseif ($row['approved'] === 'N'){
-                             ?>
-                                    <th><span class="label label-danger">Denied</span></th>
-                             <?php
-                                }elseif ($row['approved'] === NULL && $row['employee_id'] !== NULL){
-                             ?>
-                                    <th><span class="label label-warning">Not yet reviewed</span></th>
-                             <?php
-                                }else {
-                             ?>
-                                    <th><span class="label label-info">No leave request</span></th>
-                             <?php
-                                }
-                             ?>
-                            <?php
-                        }
-                    ?>
-                        </table>
+
+                  <!--  <div class="col-md-4">
+                        <div class="box box-widget widget-user-2">
+
+                              
+                            <div class="widget-user-header bg-yellow">
+                                <div class="widget-user-image">
+                                   
+
+                                  
+ 
+
+
+                                </div>
+                                <h3 class="widget-user-username"></h3>
+                                <h5 class="widget-user-desc"></h5>
+                            </div>
+
+
+<br><br><br>-->
+
+ <table>
+
                     </div>
-                </div>
-                </div>
-            </section>
+   <tr>
+       <th>Last Name</th>
+       <th>First Name</th>
+        <th>Mark :</th>
+        <th>ADD :</th>
+   </tr>
+                            <div class="box-footer no-padding">
+                                <?php
+             
+          $sql="SELECT * FROM user,exam  where  user.type='2' and (user.id_user NOT IN ( SELECT id_etudiant from note) OR  exam.id_exam  NOT IN ( SELECT id_exam from note))";
+                  $query = $db->prepare($sql);
+                  $query->execute();
 
+                               
+                                while ($row =$query->fetch()) {
+
+                                    ?>
+                               <!-- <ul class="nav nav-stacked"> -->
+
+      <form action="ajouter_notes.php" method="post">
+
+                                      <tr>
+
+        <input type="hidden" value="<?php echo "$id_exam"; ?>" name="exam">
+        <td><?php echo $row['nom']; ?></td>
+       <td><?php echo $row['prenom']; ?></td>
+     <td   ><input type="number"  name="note"></td>
+     <td  hidden ><input type="hidden" value="<?php echo $row['id_user']; ?>" name="etudiant"></td>
+       
+    
+     
+  
+                                  <td> <input  type="submit" name="valider"  value="ADD"></td>
+                                      </tr> 
+                                  </form>
+                                
+                                       
+ <?php
+                }
+                ?>
+              
+                            </div>
+                              </table>
+               <!--         </div>
+                    </div>-->
+             
         </section>
+  
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -204,24 +245,17 @@ $user = new USER();
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            by love <3
+       
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2017 <a href="#">Coligz App</a>.</strong> All rights reserved.
+       
     </footer>
 
 
 </div>
 <!-- /.tab-pane -->
-</div>
-</aside>
-<!-- /.control-sidebar -->
-<!-- Add the sidebar's background. This div must be placed
-     immediately after the control sidebar -->
-<div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
 
+<div class="control-sidebar-bg"></div>
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->

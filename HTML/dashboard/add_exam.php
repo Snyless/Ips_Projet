@@ -1,20 +1,45 @@
 <?php
 require_once("../includes/session.php");
+ $db = new PDO('mysql:host=localhost;dbname=masterips;charset=utf8', 'root', '');
+ 
 
 
-if (isset($_POST['ok'])){
-    $employee_id = $login_session['id_emp'];
-    $firstname  = $_POST['firstname'];
-    $lastname  = $_POST['lastname'];
-    $phone =  $_POST['phone'];
-    $email =  $_POST['email'];
-    $title =  $_POST['title'];
-    $department =  $_POST['department'];
-    $city  = $_POST['city'];
-    $country  =  $_POST['country'];
-    $password = $_POST['password'];
-    $stmt = $user->runQuery("INSERT INTO employee (firstname,lastname,phone,email,id_manager,title,department,city,country,password) VALUES ('$firstname','$lastname','$phone','$email','$employee_id','$title','$department','$city','$country','$password')");
-    $stmt->execute();
+   include'../includes/session.php';
+      $user=$_SESSION['login_user'] ; 
+         $sql=" SELECT  * FROM  cours,user where user.username='$user'and user.id_user=cours.id_enseignant";
+$req="SELECT * from user  where  username ='$user'";
+   $sql1='SELECT * FROM user where type="2" ';
+
+?>
+
+
+
+
+<?php
+
+
+
+
+if (isset($_POST['valider'])){
+
+    $cours = $_POST['cours'];
+    $type =  $_POST['type'];
+    $date_exam =  $_POST['date_exam'];
+    $coeff =  $_POST['coeff'];
+
+
+
+
+ $sql4=" INSERT INTO exam (type,date_exam,coefficient,id_cours) VALUES ('$type','$date_exam','$coeff','$cours')";
+               $query4 = $db->prepare($sql4);
+               $query4->execute();
+
+          $id = $db->lastInsertId();  
+          
+if(!empty($id)){
+               header("location:ajouter_notes.php?id_exam=$id");}
+
+
 
 }
 
@@ -25,7 +50,7 @@ if (isset($_POST['ok'])){
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Coligz | Control panel</title>
+    <title>MASTER IPS | Control panel</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -49,9 +74,9 @@ if (isset($_POST['ok'])){
         <!-- Logo -->
         <a href="index.php" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>COL</b>IGZ</span>
+            <span class="logo-mini"><b>MASTER</b>IPS</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>COL</b>IGZ</span>
+            <span class="logo-lg"><b>MASTER</b>IPS</span>
         </a>
 
         <!-- Header Navbar -->
@@ -69,17 +94,22 @@ if (isset($_POST['ok'])){
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
                             <img src="dist/img/admin.png" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?php print($login_session['firstname']."&nbsp;".$login_session['lastname']); ?></span>
+                            <?php   $data1=$db->prepare($req);
+                $data1->execute();
+            while($ligne=$data1->fetch()){
+            	?>
+                                                        <span class="hidden-xs"><?php print($ligne['nom']."&nbsp;".$ligne['prenom']); ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="<?php print($login_session['picture'])?>" class="img-circle" alt="User Image">
+                                <img src="<?php print($ligne['picture'])?>" class="img-circle" alt="User Image">
 
                                 <p>
-                                    <?php print($login_session['firstname']."&nbsp;".$login_session['lastname']."<small>".$login_session['title']."</small>"); ?>
+                                    <?php print($ligne['nom']."&nbsp;".$ligne['prenom']); ?>
                                 </p>
                             </li>
+                   
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
@@ -107,12 +137,13 @@ if (isset($_POST['ok'])){
                     <img src="dist/img/admin.png" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p><?php print($login_session['firstname']."&nbsp;".$login_session['lastname']); ?></p>
+                    <p><?php print($ligne['nom']."&nbsp;".$ligne['prenom']); ?></p>
                     <!-- Status -->
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
-
+ <?php    }
+            	?>
             <!-- search form (Optional) -->
             <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
@@ -128,11 +159,12 @@ if (isset($_POST['ok'])){
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                     <li><a href="index.php"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
-                    <li class="active"><a href="addemployee.php"><i class="fa fa-link"></i> <span>Add Employee</span></a></li>
-                    <li><a href="listemployees.php"><i class="fa fa-link"></i> <span>list of all employees</span></a></li>
-                    <li><a href="leaverequest.php"><i class="fa fa-link"></i> <span>Leave Request</span></a></li>
-                    <li><a href="leaveplanning.php"><i class="fa fa-link"></i> <span>Leave request planning</span></a></li>
-                    <li><a href="profile.php"><i class="fa fa-link"></i> <span>Edit profile</span></a></li>
+                    <li><a href="addCourses.php"><i class="fa fa-link"></i> <span>Add Courses </span></a></li>
+                    <li  class="active"><a href="add_exam.php"><i class="fa fa-link"></i> <span>Add Marks </span></a></li>
+                    <li><a href="absence_detail.php."><i class="fa fa-link"></i> <span>Absence</span></a></li>
+                    <li><a href="cours.php"><i class="fa fa-link"></i> <span>Update Courses</span></a></li>
+                     <li><a href="notes.php"><i class="fa fa-link"></i> <span>Update Marks </span></a></li>
+                       <li  ><a href="delete_absence.php"><i class="fa fa-link"></i> <span>Update Absence  </span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
@@ -143,7 +175,7 @@ if (isset($_POST['ok'])){
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>Add Employee</h1>
+            <h1>Add Exam</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                 <li class="active">Here</li>
@@ -157,93 +189,77 @@ if (isset($_POST['ok'])){
                 <div class="row">
                     <div class="box box-danger">
                         <div class="box-header">
-                            <h3 class="box-title">Employee informations</h3>
+                            <h3 class="box-title"> Exam  informations : </h3>
                         </div>
                         <div class="box-body">
-                            <form action="addemployee.php" method="post">
+                            
+                            <form action="add_exam.php" method="post" >
+                               
                                 <div class="form-group">
-                                    <label>First name :</label>
+                                    <label>Course :</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <i class="ion ion-person"></i>
+                                            <i class="fa fa-book"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="firstname">
+                                       <select class="form-control" name="cours">
+   
+       <?php
+             
+              
+                  $query = $db->prepare($sql);
+                  $query->execute();
+
+                               
+                                while ($ligne =$query->fetch()) {
+                                    ?>
+  <option value=<?php echo"{$ligne['id_cours']}"; ?>  > <?php echo"{$ligne['titulaire']}"; ?> </option>
+  <?php
+                    }?>
+</select>
                                     </div>
+  
+
+
                                 </div>
+
+
                                 <div class="form-group">
-                                    <label>Last name :</label>
+                                    <label>Type :</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <i class="ion ion-person"></i>
+                                            <i class="fa fa-check"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="lastname">
+                                        
+                                         <select class="form-control" name="type">
+                                            <option value="Contunie" >Exam 1</option>
+                                             <option value="Final" >Final Exam</option>
+                                              <option value="TP" >Exam TP</option>
+   </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Phone number :</label>
+                              <div class="form-group">
+                                    <label>Date Exam:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
+                                            <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="phone">
+
+                        <input   type="date" name="date_exam"  class="form-control"   >
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Email :</label>
+                                 <div class="form-group">
+                                    <label>Coefficient:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
-                                            <i class="fa fa-envelope-o"></i>
+                                            <i class="fa fa-pencil"></i>
                                         </div>
-                                        <input type="text" class="form-control" name="email">
+
+                        <input   type="number"    name="coeff"  class="form-control"   >
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Title :</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-briefcase"></i>
-                                        </div>
-                                        <input type="text" class="form-control" name="title">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Department :</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-building-o"></i>
-                                        </div>
-                                        <input type="text" class="form-control" name="department">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>City :</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-map-marker"></i>
-                                        </div>
-                                        <input type="text" class="form-control" name="city">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Country :</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-globe"></i>
-                                        </div>
-                                        <input type="text" class="form-control" name="country">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>New Password :</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-unlock-alt"></i>
-                                        </div>
-                                        <input type="password" class="form-control" name="password"  placeholder="***********">
-                                    </div>
-                                </div>
+                               
                                 <div class="box-footer">
-                                    <button type="submit" name="ok" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="valider" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -263,7 +279,7 @@ if (isset($_POST['ok'])){
             by love <3
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2017 <a href="#">Coligz App</a>.</strong> All rights reserved.
+       
     </footer>
 
 

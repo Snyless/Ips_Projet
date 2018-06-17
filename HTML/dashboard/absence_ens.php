@@ -1,8 +1,31 @@
 <?php
-require_once("session.php");
+require_once("../includes/session.php");
+$db = new PDO('mysql:host=localhost;dbname=masterips;charset=utf8', 'root', '');
+ 
 
-require_once("class.user.php");
-$user = new USER();
+
+   
+$cours1=$_GET['id_cours'];
+$nbheure1=$_GET['nbheure'];
+$date1=$_GET['date'];
+
+
+if (isset($_POST['valider'])){
+
+
+   
+ $id_etudiant = $_POST['etudiant'];
+ $id_cours = $_POST['id_cours'];
+ $date_absence = $_POST['date_absence'];
+ $nbheures = $_POST['nbheures'];
+     
+
+$sql3="INSERT INTO absence (id_etudiant,id_cours,date,nb_heure) VALUES ('$id_etudiant','$id_cours','$date_absence','$nbheures')";
+     $query3 = $db->prepare($sql3);
+     $query3->execute();
+         header("location:absence.php?id_cours=$id_cours&nbheure=$nbheures&date=$date_absence");
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -10,7 +33,7 @@ $user = new USER();
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Coligz | Control panel</title>
+    <title>MASTER IPS | Control panel</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -22,6 +45,9 @@ $user = new USER();
     <link rel="stylesheet" href="dist/css/style.min.css">
 
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+ 
+        <link rel="stylesheet" href="../css/table_css_absence.css" />
+      
 
 </head>
 
@@ -34,9 +60,9 @@ $user = new USER();
         <!-- Logo -->
         <a href="index.php" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>COL</b>IGZ</span>
+            <span class="logo-mini"><b>MASTER</b>IPS</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>COL</b>IGZ</span>
+            <span class="logo-lg"><b>MASTER</b>IPS</span>
         </a>
 
         <!-- Header Navbar -->
@@ -149,36 +175,83 @@ $user = new USER();
         <!-- Main content -->
         <section class="content" style="height: 904px;">
 
-                <?php
 
-                $stmt = $user->runQuery("SELECT * FROM employee");
-                $stmt->execute();
-                while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-                    ?>
-                    <div class="col-md-4">
+
+                  <!--  <div class="col-md-4">
                         <div class="box box-widget widget-user-2">
+
+                              
                             <div class="widget-user-header bg-yellow">
                                 <div class="widget-user-image">
-                                    <img class="img-circle" src="<?php echo $row['picture']; ?>" alt="User Avatar">
+                                   
+
+                                  
+ 
+
+
                                 </div>
-                                <h3 class="widget-user-username"><?php echo $row['firstname']."&nbsp;".$row['lastname']; ?></h3>
-                                <h5 class="widget-user-desc"><?php echo $row['title']; ?></h5>
+                                <h3 class="widget-user-username"></h3>
+                                <h5 class="widget-user-desc"></h5>
                             </div>
-                            <div class="box-footer no-padding">
-                                <ul class="nav nav-stacked">
-                                    <li><a href="#">Department <span class="pull-right badge bg-blue"><?php echo $row['department']; ?></span></a></li>
-                                    <li><a href="#">Email <span class="pull-right badge bg-aqua"><?php echo $row['email']; ?></span></a></li>
-                                    <li><a href="#">Phone <span class="pull-right badge bg-green"><?php echo $row['phone']; ?></span></a></li>
-                                    <li><a href="#">City <span class="pull-right badge bg-red"><?php echo $row['city']; ?></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
+
+
+<br><br><br>-->
+
+ <table>
+
                     </div>
-                    <?php
+   <tr>
+       <th>Last Name</th>
+       <th>First Name</th>
+    
+        <th>ADD :</th>
+   </tr>
+                            <div class="box-footer no-padding">
+                                <?php
+             
+          $sql="SELECT * FROM user where type='2'";
+                  $query = $db->prepare($sql);
+                  $query->execute();
+
+                               
+                                while ($row =$query->fetch()) {
+
+                                    ?>
+                               <!-- <ul class="nav nav-stacked"> -->
+
+      <form action="absence.php" method="post">
+
+                                      <tr>
+
+
+        <input type="hidden" value="<?php echo "$nbheure1"; ?>" name="nbheures">
+          <input type="hidden" value="<?php echo "$cours1"; ?>" name="id_cours">
+            <input type="hidden" value="<?php echo "$date1"; ?>" name="date_absence">
+
+        <td><?php echo $row['nom']; ?></td>
+       <td><?php echo $row['prenom']; ?></td>
+    
+     <td  hidden ><input type="hidden" value="<?php echo $row['id_user']; ?>" name="etudiant"></td>
+       
+    
+     
+  
+                                  <td> <input  type="submit" name="valider"  value="ADD"></td>
+                                      </tr> 
+                                  </form>
+                                
+                                       
+ <?php
                 }
                 ?>
-
+              
+                            </div>
+                              </table>
+               <!--         </div>
+                    </div>-->
+             
         </section>
+  
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -187,10 +260,10 @@ $user = new USER();
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            by love <3
+       
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2017 <a href="#">Coligz App</a>.</strong> All rights reserved.
+       
     </footer>
 
 

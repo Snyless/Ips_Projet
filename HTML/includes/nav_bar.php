@@ -35,9 +35,11 @@
                                         <?php echo $login_session['username'] ?>
                                     </a>
                                     <ul class="dropdown-menu">
-                                     <li><a class="dropdown-item" href="index-2.php">Profile</a></li>
-                                     <li><a class="dropdown-item" href="dashboard/index.php">Dashborad</a></li>
+
+                                     <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                                     <li><a class="dropdown-item" href="dashboard/index.php">Dashboard</a></li>
                                      <li><a class="dropdown-item" href="logout.php">Deconnexion</a></li>
+
                                     </ul>
                                 </li>
                                 <?php

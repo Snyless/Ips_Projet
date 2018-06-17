@@ -162,81 +162,36 @@
                 <div class="col-lg-6">
                     <h2>Important Dates</h2>
                     <div class="event-date-slide">
+                        <?php
+               $db = new PDO('mysql:host=localhost;dbname=masterips;charset=utf8', 'root', '');
+                $sql='SELECT * FROM event';
+                  $query = $db->prepare($sql);
+                  $query->execute();
+                  
+                    while($ligne = $query->fetch()){
+                     if($ligne['completed']==0){
+                     
+                  
+                    ?>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="event_date">
                                     <div class="event-date-wrap">
-                                        <p>06</p>
-                                        <span>Nov.17</span>
+                                        <p><?php echo date('D',strtotime($ligne['date_event'])); ?></p>
+                                        <span><?php 
+                                echo date('M',strtotime($ligne['date_event']));?>.<?php echo date ('Y',strtotime($ligne['date_event'])); ?></span>
                                     </div>
                                 </div>
                                 <div class="date-description">
-                                    <h3>Eestibulum sodales metus.</h3>
-                                    <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book ...</p>
+                                    <h3><?php echo $ligne['titre']; ?>.</h3>
+                                    <p<?php echo $ligne['description_min']; ?></p>
                                     <hr class="event_line">
                                 </div>
-                                <div class="event_date">
-                                    <div class="event-date-wrap">
-                                        <p>10</p>
-                                        <span>Nov.17</span>
-                                    </div>
-                                </div>
-                                <div class="date-description">
-                                    <h3>Integer faucibus nulla a ligula.</h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever...</p>
-                                </div>
+                                
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="event_date">
-                                    <div class="event-date-wrap">
-                                        <p>05</p>
-                                        <span>Oct.17</span>
-                                    </div>
-                                </div>
-                                <div class="date-description">
-                                    <h3>Eestibulum sodales metus.</h3>
-                                    <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book ...</p>
-                                    <hr class="event_line">
-                                </div>
-                                <div class="event_date">
-                                    <div class="event-date-wrap">
-                                        <p>06</p>
-                                        <span>Nov.17</span>
-                                    </div>
-                                </div>
-                                <div class="date-description">
-                                    <h3>Integer faucibus nulla a ligula.</h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever...</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="event_date">
-                                    <div class="event-date-wrap">
-                                        <p>06</p>
-                                        <span>Sep.18</span>
-                                    </div>
-                                </div>
-                                <div class="date-description">
-                                    <h3>Eestibulum sodales metus.</h3>
-                                    <p>When an unknown printer took a galley of type and scrambled it to make a type specimen book ...</p>
-                                    <hr class="event_line">
-                                </div>
-                                <div class="event_date">
-                                    <div class="event-date-wrap">
-                                        <p>06</p>
-                                        <span>Mar.17</span>
-                                    </div>
-                                </div>
-                                <div class="date-description">
-                                    <h3>Integer faucibus nulla a ligula.</h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever...</p>
-                                </div>
-                            </div>
-                        </div>
+                        
+                       <?php } } ?>
                     </div>
                 </div>
             </div>
